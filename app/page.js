@@ -96,7 +96,7 @@ export default function Home() {
     {
       title: "1BackPack Mobile App",
       description: "A full-stack educational website platform built with Angular, editor.js, and Firebase",
-      image: "/mblebackpack.PNG",
+      image: "/mblebackpack.png",
       tech: ["Angular", "Editor.js", "Firebase", "Bootstrap","Capacitor"],
       link: "https://backpack-v3-1.web.app"
     },
