@@ -47,49 +47,49 @@ export default function Home() {
     {
       title: "DeAutoApp",
       description: "Multi-platform automotive service app (mobile + web).",
-      image: "/deautoapp.png",
+      image: "/deautoapp.PNG",
       tech: ["Angular", "Node.js", "Sql", "Bootstrap","Dart"],
       link: "https://deautoapp.nl/"
     },
     {
       title: "Bio Controller",
       description: "A modern, responsive portfolio website with smooth animations",
-      image: "/biocontroller.png",
+      image: "/biocontroller.PNG",
       tech: ["Next.js","Flow.js", "Tailwind CSS","Firebase", "Framer Motion"],
       link: "#"
     },
     {
       title: "BackPack Website",
       description: "A full-stack educational website platform built with Angular, and Firebase",
-      image: "/backpackwebsite.png",
+      image: "/backpackwebsite.PNG",
       tech: ["Angular", "Firebase", "Bootstrap"],
       link: "https://backpack-dev-website.web.app"
     },
     {
       title: "Hotel Alvsjo",
       description: "A full-stack hotel management website platform built with Laravel, and sql",
-      image: "/hotel.png",
+      image: "/hotel.PNG",
       tech: ["Laravel", "JavaScript", "Sql"],
       link: "https://backpack-dev-website.web.app"
     },
     {
       title: "Travel Agency",
       description: "A full-stack Travel agency website platform built with Laravel, and sql",
-      image: "/travel.png",
+      image: "/travel.PNG",
       tech: ["Laravel", "JavaScript", "Sql"],
       link: "https://backpack-dev-website.web.app"
     },
     {
       title: "IT Company Portfolio Website",
       description: "A full-stack IT Company Portfolio Website platform built with Laravel, and sql",
-      image: "/notigate.png",
+      image: "/notigate.PNG",
       tech: ["Laravel", "JavaScript", "Sql"],
       link: "https://backpack-dev-website.web.app"
     },
     {
       title: "Sport News Agency",
       description: "A full-stack Sport News Agency website platform built with Laravel, and sql",
-      image: "/sai image.png",
+      image: "/sai image.PNG",
       tech: ["Laravel", "JavaScript", "Sql"],
       link: "https://backpack-dev-website.web.app"
     },
