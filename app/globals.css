@@ -103,3 +103,35 @@
 .glass {
   @apply backdrop-blur-md bg-white/10 dark:bg-black/10 border border-white/20 dark:border-gray-700/50;
 }
+
+/* Bird animations */
+@keyframes birdFlap {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(5deg);
+  }
+}
+
+@keyframes birdBounce {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+.bird-animation {
+  animation: birdFlap 0.5s ease-in-out infinite, birdBounce 2s ease-in-out infinite;
+}
+
+
+.fly {
+  animation: fly 5s linear infinite;
+}
+
+.flap {
+  animation: flap 0.4s ease-in-out infinite;
+}

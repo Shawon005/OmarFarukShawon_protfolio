@@ -6,6 +6,8 @@ import Image from 'next/image';
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [birdPosition, setBirdPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +29,34 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Mouse tracking effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Bird animation effect
+  useEffect(() => {
+    const animateBird = () => {
+      setBirdPosition(prev => {
+        const dx = (mousePosition.x-20) - prev.x;
+        const dy = (mousePosition.y-20) - prev.y;
+        
+        return {
+          x: prev.x + dx * 0.1,
+          y: prev.y + dy * 0.1
+        };
+      });
+    };
+
+    const animationId = requestAnimationFrame(animateBird);
+    return () => cancelAnimationFrame(animationId);
+  }, [mousePosition]);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -123,6 +153,27 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
+      {/* Bird Animation */}
+      <div 
+        className="fixed z-50 pointer-events-none bird-animation"
+        style={{
+          left: `${birdPosition.x}px`,
+          top: `${birdPosition.y}px`,
+        }}
+      >
+         
+          <div className="absolute top-1/2 fly  w-24 h-24">
+          <Image
+        src="/bird.png" // <- Place bird.png in public/images/
+        alt="Flying bird"
+        width={96}
+        height={96}
+        className="object-contain z-100"
+      />
+  </div>
+        
+      </div>
+
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
