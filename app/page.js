@@ -69,24 +69,17 @@ export default function Home() {
   const projects = [
     {
       title: "1BackPack",
-      description: "A full-stack educational website platform built with Angular, editor.js, and Firebase",
+      description: "1Backpack is an educational platform where admins can create articles and generate related questions, including AI-powered questions",
       image: "/backpack.PNG",
       tech: ["Angular", "Editor.js", "Firebase", "Bootstrap"],
       link: "https://backpack-v3-1.web.app"
     },
     {
       title: "DeAutoApp",
-      description: "Multi-platform automotive service app (mobile + web).",
+      description: "A multi-vendor web and mobile application designed to make automotive service management easier for both garage owners and vehicle ownerst",
       image: "/deautoapp.PNG",
-      tech: ["Angular", "Node.js", "Sql", "Bootstrap","Dart"],
+      tech: ["Angular", "Node.js", "Sql", "Bootstrap","REST API"],
       link: "https://deautoapp.nl/"
-    },
-    {
-      title: "Bio Controller",
-      description: "A modern, responsive portfolio website with smooth animations",
-      image: "/biocontroller.PNG",
-      tech: ["Next.js","Flow.js", "Tailwind CSS","Firebase", "Framer Motion"],
-      link: "#"
     },
     {
       title: "BackPack Website",
@@ -96,40 +89,56 @@ export default function Home() {
       link: "https://backpack-dev-website.web.app"
     },
     {
+      title: "PhotoParivar",
+      description: "PhotoParivar brings together photographers, studios, freelancers, and businesses in one place, helping them connect, collaborate, and grow.",
+      image: "/iwp_image.PNG",
+      tech: ["PHP", "Laravel", "Bootstrap", "Sql","JavaScript"],
+      link: "https://photoparivar.in/"
+    },
+    {
+      title: "Stdio All In",
+      description: "A full-stack Sport News Agency website platform built with Laravel, and sql",
+      image: "/sai image.PNG",
+      tech: ["PHP","Laravel", "JavaScript", "Sql","Bootstrap"],
+      link: "https://studioallin.se/"
+    },
+    {
+      title: "Deautoapp Mobile App",
+      description: "Our app makes it easy to book car services and find garages nearby. Quickly search for workshops based on your location and view them clearly on the map",
+      image: "/appicon.jpg",
+      tech: ["Angular", "Sql", "Bootstrap","Flutter","REST API","Dart"],
+      link: "https://play.google.com/store/apps/details?id=com.deauto.app"
+    },
+    {
+      title: "Bio Controller",
+      description: "A modern, responsive portfolio website with smooth animations",
+      image: "/biocontroller.PNG",
+      tech: ["Next.js","Flow.js", "Tailwind CSS","Firebase", "Framer Motion"],
+      link: "#"
+    },
+    
+    {
       title: "Hotel Alvsjo",
       description: "A full-stack hotel management website platform built with Laravel, and sql",
       image: "/hotel.PNG",
       tech: ["Laravel", "JavaScript", "Sql"],
-      link: "https://backpack-dev-website.web.app"
+      link: ""
     },
     {
       title: "Travel Agency",
       description: "A full-stack Travel agency website platform built with Laravel, and sql",
       image: "/travel.PNG",
       tech: ["Laravel", "JavaScript", "Sql"],
-      link: "https://backpack-dev-website.web.app"
+      link: ""
     },
     {
       title: "IT Company Portfolio Website",
       description: "A full-stack IT Company Portfolio Website platform built with Laravel, and sql",
       image: "/notigate.PNG",
       tech: ["Laravel", "JavaScript", "Sql"],
-      link: "https://backpack-dev-website.web.app"
+      link: ""
     },
-    {
-      title: "Sport News Agency",
-      description: "A full-stack Sport News Agency website platform built with Laravel, and sql",
-      image: "/sai image.PNG",
-      tech: ["Laravel", "JavaScript", "Sql"],
-      link: "https://backpack-dev-website.web.app"
-    },
-    {
-      title: "1BackPack Mobile App",
-      description: "A full-stack educational website platform built with Angular, editor.js, and Firebase",
-      image: "/mblebackpack.png",
-      tech: ["Angular", "Editor.js", "Firebase", "Bootstrap","Capacitor"],
-      link: "https://backpack-v3-1.web.app"
-    },
+
   ];
 
   const skills = [
@@ -154,7 +163,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Bird Animation */}
-      <div 
+      {/* <div 
         className="fixed z-50 pointer-events-none bird-animation"
         style={{
           left: `${birdPosition.x}px`,
@@ -172,7 +181,7 @@ export default function Home() {
       />
   </div>
         
-      </div>
+      </div> */}
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
@@ -241,6 +250,16 @@ export default function Home() {
       <section id="home" className="pt-20 min-h-screen flex items-center justify-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in-up">
+            <div className="flex justify-center mb-6">
+              <Image
+                src="/profile_image.png"
+                alt="Profile photo"
+                width={160}
+                height={160}
+                className="rounded-full border-4 border-white dark:border-gray-800 shadow-lg object-cover"
+                priority
+              />
+            </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               Hi, I'm <span className="gradient-text">Omar Faruk Shawon</span>
             </h1>
@@ -294,11 +313,11 @@ export default function Home() {
             <div className="animate-slide-in-right">
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center shadow-lg">
-                  <h4 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">2+</h4>
+                  <h4 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">3+</h4>
                   <p className="text-gray-600 dark:text-gray-300">Years Experience</p>
                 </div>
                 <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center shadow-lg">
-                  <h4 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">10+</h4>
+                  <h4 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">12+</h4>
                   <p className="text-gray-600 dark:text-gray-300">Projects Completed</p>
                 </div>
                 <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center shadow-lg">
