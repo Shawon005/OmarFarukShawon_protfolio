@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Portfolio | Developer & Designer",
+  title: "Portfolio | Omar Faruk Shawon",
   description: "Professional portfolio showcasing web development and design projects",
 };
 
