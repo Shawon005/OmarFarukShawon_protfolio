@@ -110,6 +110,13 @@ export default function Home() {
       link: "https://play.google.com/store/apps/details?id=com.deauto.app"
     },
     {
+      title: "Organic Meal",
+      description: "It a Full-stack Food Delivery Website built with Laravel, and sql",
+      image: "/organic.PNG",
+      tech: ["Laravel","Sql", "Tailwind CSS","JavaScript"],
+      link: "https://shawon005.github.io/organic_meal_design/"
+    },
+    {
       title: "Bio Controller",
       description: "A modern, responsive portfolio website with smooth animations",
       image: "/biocontroller.PNG",
