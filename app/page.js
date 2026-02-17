@@ -68,6 +68,27 @@ export default function Home() {
 
   const projects = [
     {
+      title: "MoonFashionPT",
+      description: "MoonFashion is a Portugal-based lifestyle brand focused on high-quality perfumes for men and women, along with sophisticated jewelry and watches. We aim to deliver elegance, authenticity, and a refined shopping experience",
+      image: "/moon.PNG",
+      tech: ["Laravel", "Sql", "Javascript", "Bootstrap"],
+      link: "https://moonfashionpt.from99.com/"
+    },
+    {
+      title: "Inventory Management System",
+      description: "Inventory Management System is a web-based application built to streamline stock control, sales processing, purchase management, and reporting. The system includes real-time inventory tracking, POS functionality, customer and supplier management, and detailed analytics to improve operational efficiency.",
+      image: "inventory.PNG",
+      tech: ["Laravel", "Sql", "Javascript", "Bootstrap","Angular"],
+      link: "https://nickbd.com/"
+    },
+    {
+      title: "E-commerce",
+      description: "NICK E-commerces is a modern fashion e-commerce platform offering trendy and high-quality clothing for men and women. It provides a smooth shopping experience with secure payments, user-friendly design, and fast order management.",
+      image: "nick.PNG",
+      tech: ["Laravel", "Sql", "Javascript", "Bootstrap"],
+      link: "https://techorbit.from99.com/"
+    },
+    {
       title: "1BackPack",
       description: "1Backpack is an educational platform where admins can create articles and generate related questions, including AI-powered questions",
       image: "/backpack.PNG",
