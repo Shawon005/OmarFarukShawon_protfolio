@@ -132,7 +132,7 @@ export default function Home() {
     },
     {
       title: "Organic Meal",
-      description: "It a Full-stack Food Delivery Website built with Laravel, and sql",
+      description: "It is a Full-stack Food Delivery Website built with Laravel, and sql",
       image: "/organic.PNG",
       tech: ["Laravel","Sql", "Tailwind CSS","JavaScript"],
       link: "https://shawon005.github.io/organic_meal_design/"
