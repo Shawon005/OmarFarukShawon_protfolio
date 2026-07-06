@@ -86,7 +86,7 @@ export default function Home() {
       description: "NICK E-commerces is a modern fashion e-commerce platform offering trendy and high-quality clothing for men and women. It provides a smooth shopping experience with secure payments, user-friendly design, and fast order management.",
       image: "nick.PNG",
       tech: ["Laravel", "Sql", "Javascript", "Bootstrap"],
-      link: "https://techorbit.from99.com/"
+      link: "https://https://rabiulincubator.com"
     },
     {
       title: "1BackPack",
