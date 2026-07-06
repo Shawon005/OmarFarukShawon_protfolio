@@ -70,14 +70,14 @@ export default function Home() {
     {
       title: "MoonFashionPT",
       description: "MoonFashion is a Portugal-based lifestyle brand focused on high-quality perfumes for men and women, along with sophisticated jewelry and watches. We aim to deliver elegance, authenticity, and a refined shopping experience",
-      image: "/moon.PNG",
+      image: "/moon.png",
       tech: ["Laravel", "Sql", "Javascript", "Bootstrap"],
-      link: "https://moonfashionpt.from99.com/"
+      link: "https://moonfashionpt.com/"
     },
     {
       title: "Inventory Management System",
       description: "Inventory Management System is a web-based application built to streamline stock control, sales processing, purchase management, and reporting. The system includes real-time inventory tracking, POS functionality, customer and supplier management, and detailed analytics to improve operational efficiency.",
-      image: "/inventory.PNG",
+      image: "/inventory.png",
       tech: ["Laravel", "Sql", "Javascript", "Bootstrap","Angular"],
       link: "https://nickbd.com/"
     },
@@ -86,7 +86,7 @@ export default function Home() {
       description: "NICK E-commerces is a modern fashion e-commerce platform offering trendy and high-quality clothing for men and women. It provides a smooth shopping experience with secure payments, user-friendly design, and fast order management.",
       image: "/roubi.png",
       tech: ["Laravel", "Sql", "Javascript", "Bootstrap"],
-      link: "https://https://rabiulincubator.com"
+      link: "https://rabiulincubator.com"
     },
     {
       title: "1BackPack",
