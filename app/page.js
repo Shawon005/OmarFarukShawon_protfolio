@@ -77,14 +77,14 @@ export default function Home() {
     {
       title: "Inventory Management System",
       description: "Inventory Management System is a web-based application built to streamline stock control, sales processing, purchase management, and reporting. The system includes real-time inventory tracking, POS functionality, customer and supplier management, and detailed analytics to improve operational efficiency.",
-      image: "inventory.PNG",
+      image: "/inventory.PNG",
       tech: ["Laravel", "Sql", "Javascript", "Bootstrap","Angular"],
       link: "https://nickbd.com/"
     },
     {
       title: "E-commerce",
       description: "NICK E-commerces is a modern fashion e-commerce platform offering trendy and high-quality clothing for men and women. It provides a smooth shopping experience with secure payments, user-friendly design, and fast order management.",
-      image: "nick.PNG",
+      image: "/roubi.png",
       tech: ["Laravel", "Sql", "Javascript", "Bootstrap"],
       link: "https://https://rabiulincubator.com"
     },
