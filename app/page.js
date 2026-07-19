@@ -1,559 +1,475 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+
+const navigation = ['home', 'about', 'skills', 'projects', 'contact'];
+
+const projects = [
+  {
+    title: 'MoonFashionPT',
+    description: 'A Portugal-based lifestyle store for premium perfumes, jewelry, and watches, built around an elegant and trustworthy shopping experience.',
+    image: '/moon.png',
+    tech: ['Laravel', 'SQL', 'JavaScript', 'Bootstrap'],
+    link: 'https://moonfashionpt.com/',
+  },
+  {
+    title: 'Inventory Management System',
+    description: 'A complete operations platform with live stock tracking, POS, purchases, supplier management, and actionable reporting.',
+    image: '/inventory.png',
+    tech: ['Laravel', 'SQL', 'JavaScript', 'Angular'],
+    link: 'https://nickbd.com/',
+  },
+  {
+    title: 'NICK E-commerce',
+    description: 'A modern fashion commerce experience with secure checkout, a responsive storefront, and streamlined order management.',
+    image: '/roubi.png',
+    tech: ['Laravel', 'SQL', 'JavaScript', 'Bootstrap'],
+    link: 'https://rabiulincubator.com',
+  },
+  {
+    title: '1BackPack',
+    description: 'An education platform where teams create articles and generate related questions with AI-assisted workflows.',
+    image: '/backpack.PNG',
+    tech: ['Angular', 'Editor.js', 'Firebase', 'Bootstrap'],
+    link: 'https://backpack-v3-1.web.app',
+  },
+  {
+    title: 'DeAutoApp',
+    description: 'A multi-vendor web and mobile product that simplifies automotive service management for garages and vehicle owners.',
+    image: '/deautoapp.PNG',
+    tech: ['Angular', 'Node.js', 'SQL', 'REST API'],
+    link: 'https://deautoapp.nl/',
+  },
+  {
+    title: 'BackPack Website',
+    description: 'A fast, responsive education website designed and delivered with Angular and Firebase.',
+    image: '/backpackwebsite.PNG',
+    tech: ['Angular', 'Firebase', 'Bootstrap'],
+    link: 'https://backpack-dev-website.web.app',
+  },
+  {
+    title: 'PhotoParivar',
+    description: 'A professional network connecting photographers, studios, freelancers, and businesses to collaborate and grow.',
+    image: '/iwp_image.PNG',
+    tech: ['PHP', 'Laravel', 'SQL', 'JavaScript'],
+    link: 'https://photoparivar.in/',
+  },
+  {
+    title: 'Studio All In',
+    description: 'A full-stack sports news platform with an editorial workflow and a responsive publishing experience.',
+    image: '/sai image.PNG',
+    tech: ['PHP', 'Laravel', 'JavaScript', 'SQL'],
+    link: 'https://studioallin.se/',
+  },
+  {
+    title: 'DeAutoApp Mobile',
+    description: 'A location-aware mobile app for discovering nearby garages, comparing options, and booking car services.',
+    image: '/appicon.jpg',
+    tech: ['Flutter', 'Dart', 'SQL', 'REST API'],
+    link: 'https://play.google.com/store/apps/details?id=com.deauto.app',
+  },
+  {
+    title: 'Organic Meal',
+    description: 'A full-stack food delivery experience with a polished storefront and straightforward ordering flow.',
+    image: '/organic.PNG',
+    tech: ['Laravel', 'SQL', 'Tailwind CSS', 'JavaScript'],
+    link: 'https://shawon005.github.io/organic_meal_design/',
+  },
+  {
+    title: 'Bio Controller',
+    description: 'A modern real-time controller interface with accessible interactions and smooth motion design.',
+    image: '/biocontroller.PNG',
+    tech: ['Next.js', 'Flow.js', 'Firebase', 'Framer Motion'],
+    link: '',
+  },
+  {
+    title: 'Hotel Alvsjo',
+    description: 'A full-stack hotel management platform supporting the core guest and property workflows.',
+    image: '/hotel.PNG',
+    tech: ['Laravel', 'JavaScript', 'SQL'],
+    link: '',
+  },
+  {
+    title: 'Travel Agency',
+    description: 'A full-stack travel platform created to make browsing and managing trips feel simple.',
+    image: '/travel.PNG',
+    tech: ['Laravel', 'JavaScript', 'SQL'],
+    link: '',
+  },
+  {
+    title: 'IT Company Portfolio',
+    description: 'A flexible company website that presents services, expertise, and client work with clarity.',
+    image: '/notigate.PNG',
+    tech: ['Laravel', 'JavaScript', 'SQL'],
+    link: '',
+  },
+];
+
+const skills = [
+  { name: 'JavaScript', level: 95 },
+  { name: 'React', level: 90 },
+  { name: 'Angular', level: 90 },
+  { name: 'Next.js', level: 85 },
+  { name: 'Node.js', level: 85 },
+  { name: 'Express.js', level: 85 },
+  { name: 'Laravel', level: 90 },
+  { name: 'PHP', level: 80 },
+  { name: 'TypeScript', level: 80 },
+  { name: 'SQL', level: 75 },
+  { name: 'Firebase', level: 75 },
+  { name: 'Tailwind CSS', level: 90 },
+  { name: 'Bootstrap', level: 90 },
+  { name: 'Editor.js', level: 85 },
+  { name: 'Git', level: 85 },
+  { name: 'Flutter', level: 65 },
+];
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+function CodeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14" />
+    </svg>
+  );
+}
+
+function TiltCard({ children, className = '', style }) {
+  const cardRef = useRef(null);
+
+  const handlePointerMove = (event) => {
+    if (event.pointerType === 'touch') return;
+    const card = cardRef.current;
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+
+    card.style.setProperty('--rotate-x', `${(0.5 - y) * 8}deg`);
+    card.style.setProperty('--rotate-y', `${(x - 0.5) * 10}deg`);
+    card.style.setProperty('--pointer-x', `${x * 100}%`);
+    card.style.setProperty('--pointer-y', `${y * 100}%`);
+  };
+
+  const resetTilt = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.setProperty('--rotate-x', '0deg');
+    card.style.setProperty('--rotate-y', '0deg');
+    card.style.setProperty('--pointer-x', '50%');
+    card.style.setProperty('--pointer-y', '50%');
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={`tilt-card ${className}`}
+      style={style}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetTilt}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [birdPosition, setBirdPosition] = useState({ x: 0, y: 0 });
+  const shellRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 180;
 
-      for (const section of sections) {
+      for (const section of navigation) {
         const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
+        if (
+          element &&
+          scrollPosition >= element.offsetTop &&
+          scrollPosition < element.offsetTop + element.offsetHeight
+        ) {
+          setActiveSection(section);
+          break;
         }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mouse tracking effect
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Bird animation effect
-  useEffect(() => {
-    const animateBird = () => {
-      setBirdPosition(prev => {
-        const dx = (mousePosition.x-20) - prev.x;
-        const dy = (mousePosition.y-20) - prev.y;
-        
-        return {
-          x: prev.x + dx * 0.1,
-          y: prev.y + dy * 0.1
-        };
+    let frameId;
+    const handlePointerMove = (event) => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(() => {
+        shellRef.current?.style.setProperty('--cursor-x', `${event.clientX}px`);
+        shellRef.current?.style.setProperty('--cursor-y', `${event.clientY}px`);
       });
     };
 
-    const animationId = requestAnimationFrame(animateBird);
-    return () => cancelAnimationFrame(animationId);
-  }, [mousePosition]);
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('pointermove', handlePointerMove);
+    };
+  }, []);
 
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
 
-  const projects = [
-    {
-      title: "MoonFashionPT",
-      description: "MoonFashion is a Portugal-based lifestyle brand focused on high-quality perfumes for men and women, along with sophisticated jewelry and watches. We aim to deliver elegance, authenticity, and a refined shopping experience",
-      image: "/moon.png",
-      tech: ["Laravel", "Sql", "Javascript", "Bootstrap"],
-      link: "https://moonfashionpt.com/"
-    },
-    {
-      title: "Inventory Management System",
-      description: "Inventory Management System is a web-based application built to streamline stock control, sales processing, purchase management, and reporting. The system includes real-time inventory tracking, POS functionality, customer and supplier management, and detailed analytics to improve operational efficiency.",
-      image: "/inventory.png",
-      tech: ["Laravel", "Sql", "Javascript", "Bootstrap","Angular"],
-      link: "https://nickbd.com/"
-    },
-    {
-      title: "E-commerce",
-      description: "NICK E-commerces is a modern fashion e-commerce platform offering trendy and high-quality clothing for men and women. It provides a smooth shopping experience with secure payments, user-friendly design, and fast order management.",
-      image: "/roubi.png",
-      tech: ["Laravel", "Sql", "Javascript", "Bootstrap"],
-      link: "https://rabiulincubator.com"
-    },
-    {
-      title: "1BackPack",
-      description: "1Backpack is an educational platform where admins can create articles and generate related questions, including AI-powered questions",
-      image: "/backpack.PNG",
-      tech: ["Angular", "Editor.js", "Firebase", "Bootstrap"],
-      link: "https://backpack-v3-1.web.app"
-    },
-    {
-      title: "DeAutoApp",
-      description: "A multi-vendor web and mobile application designed to make automotive service management easier for both garage owners and vehicle ownerst",
-      image: "/deautoapp.PNG",
-      tech: ["Angular", "Node.js", "Sql", "Bootstrap","REST API"],
-      link: "https://deautoapp.nl/"
-    },
-    {
-      title: "BackPack Website",
-      description: "A full-stack educational website platform built with Angular, and Firebase",
-      image: "/backpackwebsite.PNG",
-      tech: ["Angular", "Firebase", "Bootstrap"],
-      link: "https://backpack-dev-website.web.app"
-    },
-    {
-      title: "PhotoParivar",
-      description: "PhotoParivar brings together photographers, studios, freelancers, and businesses in one place, helping them connect, collaborate, and grow.",
-      image: "/iwp_image.PNG",
-      tech: ["PHP", "Laravel", "Bootstrap", "Sql","JavaScript"],
-      link: "https://photoparivar.in/"
-    },
-    {
-      title: "Stdio All In",
-      description: "A full-stack Sport News Agency website platform built with Laravel, and sql",
-      image: "/sai image.PNG",
-      tech: ["PHP","Laravel", "JavaScript", "Sql","Bootstrap"],
-      link: "https://studioallin.se/"
-    },
-    {
-      title: "Deautoapp Mobile App",
-      description: "Our app makes it easy to book car services and find garages nearby. Quickly search for workshops based on your location and view them clearly on the map",
-      image: "/appicon.jpg",
-      tech: ["Angular", "Sql", "Bootstrap","Flutter","REST API","Dart"],
-      link: "https://play.google.com/store/apps/details?id=com.deauto.app"
-    },
-    {
-      title: "Organic Meal",
-      description: "It is a Full-stack Food Delivery Website built with Laravel, and sql",
-      image: "/organic.PNG",
-      tech: ["Laravel","Sql", "Tailwind CSS","JavaScript"],
-      link: "https://shawon005.github.io/organic_meal_design/"
-    },
-    {
-      title: "Bio Controller",
-      description: "A modern, responsive portfolio website with smooth animations",
-      image: "/biocontroller.PNG",
-      tech: ["Next.js","Flow.js", "Tailwind CSS","Firebase", "Framer Motion"],
-      link: "#"
-    },
-    
-    {
-      title: "Hotel Alvsjo",
-      description: "A full-stack hotel management website platform built with Laravel, and sql",
-      image: "/hotel.PNG",
-      tech: ["Laravel", "JavaScript", "Sql"],
-      link: ""
-    },
-    {
-      title: "Travel Agency",
-      description: "A full-stack Travel agency website platform built with Laravel, and sql",
-      image: "/travel.PNG",
-      tech: ["Laravel", "JavaScript", "Sql"],
-      link: ""
-    },
-    {
-      title: "IT Company Portfolio Website",
-      description: "A full-stack IT Company Portfolio Website platform built with Laravel, and sql",
-      image: "/notigate.PNG",
-      tech: ["Laravel", "JavaScript", "Sql"],
-      link: ""
-    },
-
-  ];
-
-  const skills = [
-    { name: "React", level: 90 },
-    { name: "Angular", level: 90 },
-    { name: "Next.js", level: 85 },
-    { name: "Editor.js", level: 85 },
-    { name: "JavaScript", level: 95 },
-    { name: "TypeScript", level: 80 },
-    { name: "Node.js", level: 85 },
-    { name: "Express.js", level: 85 },
-    { name: "PHP", level: 80 },
-    { name: "Laravel", level: 90 },
-    { name: "Sql", level: 75 },
-    { name: "Firebase", level: 75 },
-    { name: "Tailwind CSS", level: 90 },
-    { name: "Bootstrap", level: 90 },
-    { name: "Git", level: 85 },
-    { name: "Flutter", level: 65 }
-  ];
-
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Bird Animation */}
-      {/* <div 
-        className="fixed z-50 pointer-events-none bird-animation"
-        style={{
-          left: `${birdPosition.x}px`,
-          top: `${birdPosition.y}px`,
-        }}
-      >
-         
-          <div className="absolute top-1/2 fly  w-24 h-24">
-          <Image
-        src="/bird.png" // <- Place bird.png in public/images/
-        alt="Flying bird"
-        width={96}
-        height={96}
-        className="object-contain z-100"
-      />
-  </div>
-        
-      </div> */}
+    <main ref={shellRef} className="portfolio-shell">
+      <div className="ambient-grid" aria-hidden="true" />
+      <div className="cursor-glow" aria-hidden="true" />
 
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold gradient-text">Portfolio</h1>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                {['home', 'about', 'skills', 'projects', 'contact'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      activeSection === item
-                        ? 'text-blue-600 dark:text-blue-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                    }`}
-                  >
-                    {item.charAt(0).toUpperCase() + item.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </div>
+      <nav className="site-nav" aria-label="Main navigation">
+        <div className="nav-inner">
+          <button className="brand" onClick={() => scrollToSection('home')} aria-label="Go to home">
+            <span className="brand-mark">OS</span>
+            <span className="brand-copy">
+              <strong>Omar Shawon</strong>
+              <small>Full-stack developer</small>
+            </span>
+          </button>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
+          <div className="desktop-nav">
+            {navigation.map((item) => (
               <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                key={item}
+                onClick={() => scrollToSection(item)}
+                className={activeSection === item ? 'active' : ''}
               >
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                {item}
               </button>
-            </div>
+            ))}
           </div>
 
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {['home', 'about', 'skills', 'projects', 'contact'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                      activeSection === item
-                        ? 'text-blue-600 dark:text-blue-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                    }`}
-                  >
-                    {item.charAt(0).toUpperCase() + item.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+          <button
+            className={`menu-toggle ${isMenuOpen ? 'open' : ''}`}
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-expanded={isMenuOpen}
+            aria-label="Toggle navigation"
+          >
+            <span />
+            <span />
+          </button>
+
+          <div className={`mobile-nav ${isMenuOpen ? 'open' : ''}`}>
+            {navigation.map((item) => (
+              <button key={item} onClick={() => scrollToSection(item)}>
+                {item}
+              </button>
+            ))}
+          </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section id="home" className="pt-20 min-h-screen flex items-center justify-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="animate-fade-in-up">
-            <div className="flex justify-center mb-6">
-              <Image
-                src="/profile_image.png"
-                alt="Profile photo"
-                width={160}
-                height={160}
-                className="rounded-full border-4 border-white dark:border-gray-800 shadow-lg object-cover"
-                priority
-              />
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              Hi, I'm <span className="gradient-text">Omar Faruk Shawon</span>
+      <section id="home" className="hero section-wrap">
+        <div className="hero-content">
+          <div className="hero-copy reveal-up">
+            <div className="eyebrow"><span /> Available for new opportunities</div>
+            <p className="hero-kicker">FULL-STACK WEB &amp; MOBILE DEVELOPER</p>
+            <h1>
+              I build digital products<br />
+              that feel <span className="gradient-text">exceptional.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-            A passionate full-stack developer with hands-on experience in web and mobile development.
+            <p className="hero-description">
+              I&apos;m Omar Faruk Shawon — a product-minded developer turning ambitious ideas into fast,
+              scalable, and thoughtfully crafted experiences.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => scrollToSection('projects')}
-                className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-              >
-                View My Work
+            <div className="hero-actions">
+              <button className="primary-button" onClick={() => scrollToSection('projects')}>
+                Explore my work <ArrowIcon />
               </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="px-8 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white transition-colors font-medium"
-              >
-                Get In Touch
+              <button className="secondary-button" onClick={() => scrollToSection('contact')}>
+                Let&apos;s work together
               </button>
             </div>
+            <div className="hero-metrics" aria-label="Career highlights">
+              <div><strong>5+</strong><span>Years building</span></div>
+              <div><strong>14+</strong><span>Products shipped</span></div>
+              <div><strong>10+</strong><span>Happy clients</span></div>
+            </div>
+          </div>
+
+          <div className="hero-visual reveal-scale" aria-label="Portrait of Omar Faruk Shawon">
+            <div className="profile-orbit orbit-one" />
+            <div className="profile-orbit orbit-two" />
+            <div className="profile-glow" />
+            <TiltCard className="profile-card">
+              <div className="profile-code">&lt;developer /&gt;</div>
+              <div className="profile-image-wrap">
+                <Image
+                  src="/profile_image.png"
+                  alt="Omar Faruk Shawon"
+                  fill
+                  sizes="(max-width: 900px) 72vw, 440px"
+                  className="profile-image"
+                  priority
+                />
+              </div>
+              <div className="profile-status">
+                <span className="status-dot" />
+                <div><strong>Open to work</strong><small>Based in Bangladesh · Remote ready</small></div>
+              </div>
+            </TiltCard>
+            <div className="floating-chip chip-react">React</div>
+            <div className="floating-chip chip-laravel">Laravel</div>
+            <div className="floating-chip chip-flutter">Flutter</div>
+          </div>
+        </div>
+        <button className="scroll-cue" onClick={() => scrollToSection('about')} aria-label="Scroll to about section">
+          <span>Scroll to discover</span><i />
+        </button>
+      </section>
+
+      <section id="about" className="content-section section-wrap">
+        <div className="section-heading">
+          <div><span className="section-number">01</span><p>About me</p></div>
+          <h2>Engineering with purpose.<br /><span>Designing with empathy.</span></h2>
+          <p>I combine dependable engineering with product thinking to create software people enjoy using.</p>
+        </div>
+
+        <div className="about-grid">
+          <TiltCard className="about-story panel">
+            <div className="panel-label"><CodeIcon /> My journey</div>
+            <h3>From curiosity to production-ready products.</h3>
+            <p>
+              My journey into software development began in 2018 with a curiosity about how digital tools work
+              and a drive to build useful things on the internet. That curiosity grew into a career spanning
+              full-stack web and cross-platform mobile development.
+            </p>
+            <p>
+              I&apos;ve since worked with startups, freelance clients, and distributed teams — transforming early
+              ideas into scalable products using Angular, React, Laravel, Flutter, and Firebase.
+            </p>
+            <div className="story-line"><span /><small>Currently focused on accessible, high-performance product experiences.</small></div>
+          </TiltCard>
+
+          <div className="principles-grid">
+            {[
+              ['01', 'Product thinking', 'I look beyond tickets to understand the user and business outcome.'],
+              ['02', 'Clean execution', 'Maintainable code, considered details, and reliable delivery come standard.'],
+              ['03', 'Always learning', 'I stay curious, test ideas quickly, and keep improving the way I build.'],
+              ['04', 'Clear partnership', 'Good work starts with honest communication and shared ownership.'],
+            ].map(([number, title, copy]) => (
+              <TiltCard className="principle-card panel" key={title}>
+                <span>{number}</span><h3>{title}</h3><p>{copy}</p>
+              </TiltCard>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">About Me</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              I'm a passionate developer with 5+ years of experience creating digital solutions that make a difference.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-slide-in-left">
-              <div className="bg-white dark:bg-gray-700 rounded-lg p-8 shadow-lg">
-                <h3 className="text-2xl font-bold mb-4">My Journey</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                My journey into software development began with a curiosity for how digital tools work — and a passion for building real, usable things on the internet. What started in 2018 as experimenting with small personal projects quickly grew into a full-fledged career in full-stack web and mobile development.
-                <br></br>
-                Since then, I’ve had the opportunity to work with startups, freelance clients, and teams across industries — helping turn ideas into interactive, scalable solutions. From web apps built with Angular and React, to cross-platform mobile apps using Flutter and Firebase, I love combining clean code with thoughtful design.
-                <br></br>
-                Today, I focus on building modern, accessible, and performance-driven experiences — whether it's a customer dashboard, a real-time controller interface, or a service-based mobile app.
-                <br></br>
-                I'm always looking to learn, solve real problems, and collaborate with people who care about quality and impact.
-                </p>
-              </div>
-            </div>
-            
-            <div className="animate-slide-in-right">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center shadow-lg">
-                  <h4 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">3+</h4>
-                  <p className="text-gray-600 dark:text-gray-300">Years Experience</p>
-                </div>
-                <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center shadow-lg">
-                  <h4 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">12+</h4>
-                  <p className="text-gray-600 dark:text-gray-300">Projects Completed</p>
-                </div>
-                <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center shadow-lg">
-                  <h4 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">10+</h4>
-                  <p className="text-gray-600 dark:text-gray-300">Happy Clients</p>
-                </div>
-                <div className="bg-white dark:bg-gray-700 rounded-lg p-6 text-center shadow-lg">
-                  <h4 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">24/7</h4>
-                  <p className="text-gray-600 dark:text-gray-300">Support Available</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <section id="skills" className="content-section section-wrap">
+        <div className="section-heading split-heading">
+          <div><span className="section-number">02</span><p>Technical toolkit</p></div>
+          <h2>Technologies I use<br /><span>to ship great work.</span></h2>
+          <p>From front-end polish to back-end architecture, I choose tools that fit the product.</p>
         </div>
-      </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Skills & Technologies</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              I've worked with a variety of technologies in the web development world.
-            </p>
+        <div className="skills-panel panel">
+          <div className="skills-topline">
+            <span>Core competencies</span>
+            <small>Continually evolving</small>
           </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="skills-grid">
             {skills.map((skill, index) => (
-              <div key={skill.name} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium">{skill.name}</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">{skill.level}%</span>
-                </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                  <div 
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full transition-all duration-1000"
-                    style={{ width: `${skill.level}%` }}
-                  ></div>
-                </div>
+              <div className="skill-item" key={skill.name} style={{ '--delay': `${index * 35}ms` }}>
+                <div><strong>{skill.name}</strong><span>{skill.level}%</span></div>
+                <div className="skill-track"><i style={{ '--skill-level': `${skill.level}%` }} /></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Here are some of my recent projects that showcase my skills and experience.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div key={project.title} className="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
-                <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                  <div className="text-white text-4xl font-bold">
-                    <img src={project.image} className='h-48 w-96'/>
-                    
-                    </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech) => (
-                      <span key={tech} className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <a 
-                    href={project.link}
-                    className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    View Project
+      <section id="projects" className="content-section section-wrap projects-section">
+        <div className="section-heading split-heading">
+          <div><span className="section-number">03</span><p>Selected work</p></div>
+          <h2>Products built for<br /><span>real-world impact.</span></h2>
+          <p>A selection of commerce, operations, education, automotive, and service products.</p>
+        </div>
+
+        <div className="projects-grid">
+          {projects.map((project, index) => (
+            <TiltCard
+              key={project.title}
+              className="project-card panel"
+              style={{ '--delay': `${(index % 3) * 80}ms` }}
+            >
+              <div className="project-image-wrap">
+                <Image
+                  src={project.image}
+                  alt={`${project.title} website preview`}
+                  fill
+                  sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                  className="project-image"
+                />
+                <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
+                {project.link && (
+                  <a href={project.link} target="_blank" rel="noreferrer" className="project-launch" aria-label={`Open ${project.title}`}>
+                    <ArrowIcon />
                   </a>
-                </div>
+                )}
               </div>
-            ))}
+              <div className="project-body">
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="tech-list">
+                  {project.tech.map((tech) => <span key={tech}>{tech}</span>)}
+                </div>
+                {project.link ? (
+                  <a className="project-link" href={project.link} target="_blank" rel="noreferrer">
+                    View live project <ArrowIcon />
+                  </a>
+                ) : (
+                  <span className="project-link muted">Private project</span>
+                )}
+              </div>
+            </TiltCard>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" className="content-section section-wrap contact-section">
+        <div className="contact-panel panel">
+          <div className="contact-copy">
+            <div className="eyebrow"><span /> Let&apos;s build something useful</div>
+            <h2>Have a product in mind?<br /><span>Let&apos;s make it real.</span></h2>
+            <p>I&apos;m open to freelance projects, product collaborations, and full-time opportunities.</p>
+            <a className="contact-email" href="mailto:shawonomar05@gmail.com">
+              shawonomar05@gmail.com <ArrowIcon />
+            </a>
+          </div>
+
+          <div className="contact-details">
+            <a href="mailto:shawonomar05@gmail.com"><small>Email</small><strong>shawonomar05@gmail.com</strong></a>
+            <a href="tel:+8801857751705"><small>Phone</small><strong>+880 1857 751705</strong></a>
+            <div><small>Location</small><strong>Chattogram, Bangladesh</strong></div>
+            <a href="/OmarFarukShawon_CV.pdf" download><small>Resume</small><strong>Download my CV <ArrowIcon /></strong></a>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="animate-slide-in-left">
-              <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Email</h4>
-                    <p className="text-gray-600 dark:text-gray-300">shawonomar05@gmail.com</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Location</h4>
-                    <p className="text-gray-600 dark:text-gray-300">Chittagong, Cumilla</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Phone</h4>
-                    <p className="text-gray-600 dark:text-gray-300">+880 1857751705</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Resume</h4>
-                    <a 
-                      href="/OmarFarukShawon_CV.pdf" 
-                      download="OmarFarukShawon_CV.pdf"
-                      className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
-                    >
-                      Download CV
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="animate-slide-in-right">
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
-                    placeholder="Your name"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
-                    placeholder="your@email.com"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700"
-                    placeholder="Your message..."
-                  ></textarea>
-                </div>
-                
-                <button
-                  type="submit"
-                  className="w-full px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 bg-gray-900 dark:bg-black text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>&copy; 2024 Portfolio. All rights reserved.</p>
+      <footer>
+        <div className="footer-inner">
+          <div className="brand"><span className="brand-mark">OS</span><span className="brand-copy"><strong>Omar Shawon</strong><small>Built with care and clean code.</small></span></div>
+          <p>© {new Date().getFullYear()} Omar Faruk Shawon. All rights reserved.</p>
+          <button onClick={() => scrollToSection('home')}>Back to top ↑</button>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }
