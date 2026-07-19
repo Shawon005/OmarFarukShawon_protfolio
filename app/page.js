@@ -238,7 +238,7 @@ export default function Home() {
           <button className="brand" onClick={() => scrollToSection('home')} aria-label="Go to home">
             <span className="brand-mark">OS</span>
             <span className="brand-copy">
-              <strong>Omar Shawon</strong>
+              <strong>Omar Faruk Shawon</strong>
               <small>Full-stack developer</small>
             </span>
           </button>
@@ -465,7 +465,7 @@ export default function Home() {
 
       <footer>
         <div className="footer-inner">
-          <div className="brand"><span className="brand-mark">OS</span><span className="brand-copy"><strong>Omar Shawon</strong><small>Built with care and clean code.</small></span></div>
+          <div className="brand"><span className="brand-mark">OS</span><span className="brand-copy"><strong>Omar Faruk Shawon</strong><small>Built with care and clean code.</small></span></div>
           <p>© {new Date().getFullYear()} Omar Faruk Shawon. All rights reserved.</p>
           <button onClick={() => scrollToSection('home')}>Back to top ↑</button>
         </div>
