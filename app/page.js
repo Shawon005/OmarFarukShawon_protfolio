@@ -457,7 +457,7 @@ export default function Home() {
           <div className="contact-details">
             <a href="mailto:shawonomar05@gmail.com"><small>Email</small><strong>shawonomar05@gmail.com</strong></a>
             <a href="tel:+8801857751705"><small>Phone</small><strong>+880 1857 751705</strong></a>
-            <div><small>Location</small><strong>Chattogram, Bangladesh</strong></div>
+            <div><small>Location</small><strong>Dhaka, Bangladesh</strong></div>
             <a href="/OmarFarukShawon_CV.pdf" download><small>Resume</small><strong>Download my CV <ArrowIcon /></strong></a>
           </div>
         </div>
